@@ -19,8 +19,8 @@ public struct Resource {
   /// Returns `nil` if the resource at the provided path does not exist or is
   /// invalid.
   public init?(path: String) {
-    let url = URL(filePath: path)
-    let path = url.path()
+    let url = URL(filePath2: path)
+    let path = url.path2()
     guard
       FileManager.default.fileExists(atPath: path),
       let data = FileManager.default.contents(atPath: path),
