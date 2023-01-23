@@ -70,61 +70,11 @@ public struct Setup: ParsableCommand {
     """
   )
 
-  /// Indicates that the target is the application.
-  ///
-  /// Fresco will try to find an application in the system directory
-  /// (`/Applications`) and in the user directory (`~/Applications`, where `~`
-  /// is the user's home directory) by the passed name. The application name can
-  /// be with or without an extension.
-  @Flag(
-    name: .customShort("a"),
-    help: ArgumentHelp(
-      "Indicates that the target is the application.",
-      // swiftlint:disable:next line_length
-      discussion: "Fresco will try to find an application in the system directory (/Applications) and in the user directory (~/Applications, where ~ is the user’s home directory) by the passed name. The application name can be with or without an extension."
-    )
-  )
-  public var targetApplication = false
+  @OptionGroup
+  public var target: TargetOptions
 
-  /// Indicates that the resource is the URL.
-  ///
-  /// Fresco will try to fetch a resource from the remote server. The URL should
-  /// end with a file extension.
-  @Flag(
-    name: .customShort("u"),
-    help: ArgumentHelp(
-      "Indicates that the resource is the URL.",
-      // swiftlint:disable:next line_length
-      discussion: "Fresco will try to fetch a resource from the remote server. The URL should end with a file extension."
-    )
-  )
-  public var resourceRemote = false
-
-  /// The path to the resource file.
-  ///
-  /// The path to the resource file can be either absolute or relative. The
-  /// resource file can be in almost any image format, but `.icns` is preferred.
-  @Argument(
-    help: ArgumentHelp(
-      "The path to the resource file.",
-      // swiftlint:disable:next line_length
-      discussion: "The path to the resource file can be either absolute or relative. The resource file can be in almost any image format, but .icns is preferred."
-    )
-  )
-  public var resource: String
-
-  /// The path to the target file or directory.
-  ///
-  /// The path to the target can be either absolute or relative. The target can
-  /// be a file, directory or application.
-  @Argument(
-    help: ArgumentHelp(
-      "The path to the target file or directory.",
-      // swiftlint:disable:next line_length
-      discussion: "The path to the target can be either absolute or relative. The target can be a file, directory or application."
-    )
-  )
-  public var target: String
+  @OptionGroup
+  public var resource: ResourceOptions
 
   public init() {}
 
@@ -146,26 +96,26 @@ public struct Setup: ParsableCommand {
   }
 
   private func createResource() throws -> Resource {
-    if resourceRemote {
-      guard let resource = Resource(string: resource) else {
+    if resource.remote {
+      guard let resource = Resource(string: resource.value) else {
         throw Error.invalidStringResource
       }
       return resource
     }
-    guard let resource = Resource(path: resource) else {
+    guard let resource = Resource(path: resource.value) else {
       throw Error.invalidPathResource
     }
     return resource
   }
 
   private func createTarget() throws -> Target {
-    if targetApplication {
-      guard let target = Target(application: target) else {
+    if target.application {
+      guard let target = Target(application: target.value) else {
         throw Error.targetApplicationIsNotFound
       }
       return target
     }
-    guard let target = Target(path: target) else {
+    guard let target = Target(path: target.value) else {
       throw Error.invalidTarget
     }
     return target
