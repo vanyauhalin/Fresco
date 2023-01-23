@@ -6,9 +6,14 @@ jobs:
   draft:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
       - name: Install Tuist
-        run: curl -Ls https://install.tuist.io | bash
+        run: |
+          curl -o tuist.rb https://raw.githubusercontent.com/vanyauhalin/homebrew/main/Formula/tuist.rb
+          brew install --build-from-source tuist.rb
       - name: Install dependencies
         run: make install
       - name: Build project
