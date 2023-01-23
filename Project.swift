@@ -18,6 +18,7 @@ let project = Project(
       bundleId: "my.vanyauhalin.fresco",
       deploymentTarget: .macOS(targetVersion: "10.13"),
       sources: [
+        "Fresco/Factory.swift",
         "Fresco/Finder.swift",
         "Fresco/Fresco.swift",
         "Fresco/Resource.swift",
@@ -40,6 +41,7 @@ let project = Project(
       bundleId: "my.vanyauhalin.FrescoFramework",
       deploymentTarget: .macOS(targetVersion: "10.13"),
       sources: [
+        "Fresco/Factory.swift",
         "Fresco/Finder.swift",
         "Fresco/Fresco.swift",
         "Fresco/Resource.swift",
