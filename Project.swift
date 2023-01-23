@@ -21,8 +21,10 @@ let project = Project(
         "Fresco/Finder.swift",
         "Fresco/Fresco.swift",
         "Fresco/Resource.swift",
+        "Fresco/ResourceOptions.swift",
         "Fresco/Setup.swift",
         "Fresco/Target.swift",
+        "Fresco/TargetOptions.swift",
         "Fresco/URL+init2.swift",
         "Fresco/URL+path2.swift",
         "Fresco/Version.swift"
@@ -41,8 +43,10 @@ let project = Project(
         "Fresco/Finder.swift",
         "Fresco/Fresco.swift",
         "Fresco/Resource.swift",
+        "Fresco/ResourceOptions.swift",
         "Fresco/Setup.swift",
         "Fresco/Target.swift",
+        "Fresco/TargetOptions.swift",
         "Fresco/URL+init2.swift",
         "Fresco/URL+path2.swift",
         "Fresco/Version.swift"
