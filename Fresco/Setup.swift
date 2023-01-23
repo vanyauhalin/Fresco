@@ -5,18 +5,6 @@ import Foundation
 /// The command to set the icon.
 public struct Setup: ParsableCommand {
   public enum Error: LocalizedError {
-    /// Invalid resource URL or the resource loaded at this URL.
-    case invalidStringResource
-
-    /// The resource at the provided path does not exist or is invalid.
-    case invalidPathResource
-
-    /// The application with the provided name is not found.
-    case targetApplicationIsNotFound
-
-    /// The target at the provided path does not exist or is not supported.
-    case invalidTarget
-
     /// Insufficient permissions to modify the target.
     case insufficientPermissions
 
@@ -25,27 +13,6 @@ public struct Setup: ParsableCommand {
 
     public var errorDescription: String? {
       switch self {
-        case .invalidStringResource:
-          return NSLocalizedString(
-            "Invalid resource URL or the resource loaded at this URL.",
-            comment: "Invalid String Resource"
-          )
-        case .invalidPathResource:
-          return NSLocalizedString(
-            "The resource at the provided path does not exist or is invalid.",
-            comment: "Invalid Path Resource"
-          )
-        case .targetApplicationIsNotFound:
-          return NSLocalizedString(
-            "The application with the provided name is not found.",
-            comment: "Target Application Is Not Found"
-          )
-        case .invalidTarget:
-          return NSLocalizedString(
-            // swiftlint:disable:next line_length
-            "The target at the provided path does not exist or is not supported.",
-            comment: "Invalid Target"
-          )
         case .insufficientPermissions:
           return NSLocalizedString(
             "Insufficient permissions to modify the target.",
@@ -90,34 +57,8 @@ public struct Setup: ParsableCommand {
   }
 
   public func run() throws {
-    let resource = try createResource()
-    let target = try createTarget()
+    let resource = try Factory.create(from: resource)
+    let target = try Factory.create(from: target)
     try Setup.setIcon(resource: resource, target: target)
-  }
-
-  private func createResource() throws -> Resource {
-    if resource.remote {
-      guard let resource = Resource(string: resource.value) else {
-        throw Error.invalidStringResource
-      }
-      return resource
-    }
-    guard let resource = Resource(path: resource.value) else {
-      throw Error.invalidPathResource
-    }
-    return resource
-  }
-
-  private func createTarget() throws -> Target {
-    if target.application {
-      guard let target = Target(application: target.value) else {
-        throw Error.targetApplicationIsNotFound
-      }
-      return target
-    }
-    guard let target = Target(path: target.value) else {
-      throw Error.invalidTarget
-    }
-    return target
   }
 }
