@@ -17,20 +17,10 @@ let project = Project(
       product: .commandLineTool,
       bundleId: "my.vanyauhalin.fresco",
       deploymentTarget: .macOS(targetVersion: "10.13"),
-      sources: [
-        "Fresco/Factory.swift",
-        "Fresco/Finder.swift",
-        "Fresco/Fresco.swift",
-        "Fresco/IconManager.swift",
-        "Fresco/Resource.swift",
-        "Fresco/ResourceOptions.swift",
-        "Fresco/Setup.swift",
-        "Fresco/Target.swift",
-        "Fresco/TargetOptions.swift",
-        "Fresco/URL+init2.swift",
-        "Fresco/URL+path2.swift",
-        "Fresco/Version.swift"
-      ],
+      sources: .relative(
+        "Fresco/*.swift",
+        excluding: ["Fresco/*Tests.swift", "Fresco/XCTestCase*"]
+      ),
       dependencies: [
         .package(product: "ArgumentParser")
       ]
@@ -41,20 +31,10 @@ let project = Project(
       product: .framework,
       bundleId: "my.vanyauhalin.FrescoFramework",
       deploymentTarget: .macOS(targetVersion: "10.13"),
-      sources: [
-        "Fresco/Factory.swift",
-        "Fresco/Finder.swift",
-        "Fresco/Fresco.swift",
-        "Fresco/IconManager.swift",
-        "Fresco/Resource.swift",
-        "Fresco/ResourceOptions.swift",
-        "Fresco/Setup.swift",
-        "Fresco/Target.swift",
-        "Fresco/TargetOptions.swift",
-        "Fresco/URL+init2.swift",
-        "Fresco/URL+path2.swift",
-        "Fresco/Version.swift"
-      ],
+      sources: .relative(
+        "Fresco/*.swift",
+        excluding: ["Fresco/*Tests.swift", "Fresco/XCTestCase*"]
+      ),
       scripts: [
         .lint()
       ],
@@ -68,13 +48,9 @@ let project = Project(
       product: .unitTests,
       bundleId: "my.vanyauhalin.FrescoTests",
       deploymentTarget: .macOS(targetVersion: "10.13"),
-      sources: [
-        "Fresco/ResourceTests.swift",
-        "Fresco/TargetTests.swift",
-        "Fresco/VersionTests.swift",
-        "Fresco/XCTestCase+root.swift",
-        "Fresco/XCTestCase+setUp.swift"
-      ],
+      sources: .relative(
+        ["Fresco/*Tests.swift", "Fresco/XCTestCase*"]
+      ),
       dependencies: [
         .target(name: "FrescoFramework"),
         .xctest
