@@ -1,0 +1,28 @@
+name: draft
+
+on: workflow_dispatch
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Tuist
+        run: curl -Ls https://install.tuist.io | bash
+      - name: Install dependencies
+        run: make install
+      - name: Build project
+        run: make build
+      - name: Create draft
+        run: |
+          mv .build/Debug .build/fresco
+          tar \
+            --create \
+            --file fresco.tar.zst \
+            --use-compress-program zstd \
+            -C .build \
+            .
+          gh release create v$(make version) --draft --generate-notes
+          gh release upload v$(make version) fresco.tar.zst
+        env:
+          GH_TOKEN: ${{ github.token }}
