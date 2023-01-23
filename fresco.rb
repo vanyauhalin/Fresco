@@ -2,7 +2,7 @@ class Fresco < Formula
   desc "The handy icon manager for macOS"
   homepage "https://github.com/vanyauhalin/Fresco"
   url "https://github.com/vanyauhalin/Fresco/releases/download/v0.1.0/fresco.tar.zst"
-  sha256 "dcf4e927dc046d55338dc53aa6f47a75d7dd08ed25c2be83292f5be2c1988cba"
+  sha256 "88e8175eafe9bb777bf259a673ea4757b0aee4412d48781816cb37fb1f7069ce"
   license "MIT"
   head "https://github.com/vanyauhalin/Fresco", branch: "main"
 
