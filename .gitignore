@@ -1,0 +1,6 @@
+*.xcodeproj
+*.xcworkspace
+.build
+Derived
+Tuist/Dependencies
+xcodebuild.log
