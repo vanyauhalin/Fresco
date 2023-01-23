@@ -22,20 +22,20 @@ class ResourceTests: XCTestCase {
   }
 
   func test_resourceInitializationFromTheAbsolutePathToTheExistingValidFile() {
-    let path = root.appending(path: "Fixtures/RegularIcon.icns").path()
+    let path = root.appending2(path: "Fixtures/RegularIcon.icns").path2()
     let resource = Resource(path: path)
     XCTAssertNotNil(resource)
   }
 
   // swiftlint:disable:next line_length
   func test_resourceInitializationFromTheAbsolutePathToTheExistingInvalidFile() {
-    let path = root.appending(path: "Fixtures/BrokenIcon.icns").path()
+    let path = root.appending2(path: "Fixtures/BrokenIcon.icns").path2()
     let resource = Resource(path: path)
     XCTAssertNil(resource)
   }
 
   func test_resourceInitializationFromTheAbsolutePathToTheNonExistingFile() {
-    let path = root.appending(path: "Fixtures/RegularIcon2.icns").path()
+    let path = root.appending2(path: "Fixtures/RegularIcon2.icns").path2()
     let resource = Resource(path: path)
     XCTAssertNil(resource)
   }

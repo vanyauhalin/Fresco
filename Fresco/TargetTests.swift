@@ -38,34 +38,34 @@ class TargetTests: XCTestCase {
 
   // swiftlint:disable:next line_length
   func test_targetInitializationFromTheAbsolutePathToTheExistingSupportedApplication() {
-    let path = root.appending(path: "Fixtures/RegularApplication.app").path()
+    let path = root.appending2(path: "Fixtures/RegularApplication.app").path2()
     let target = Target(path: path)
     XCTAssertNotNil(target)
   }
 
   // swiftlint:disable:next line_length
   func test_targetInitializationFromTheAbsolutePathToTheExistingSupportedDirectory() {
-    let path = root.appending(path: "Fixtures/RegularDirectory").path()
+    let path = root.appending2(path: "Fixtures/RegularDirectory").path2()
     let target = Target(path: path)
     XCTAssertNotNil(target)
   }
 
   // swiftlint:disable:next line_length
   func test_targetInitializationFromTheAbsolutePathToTheExistingSupportedFile() {
-    let path = root.appending(path: "Fixtures/RegularFile.txt").path()
+    let path = root.appending2(path: "Fixtures/RegularFile.txt").path2()
     let target = Target(path: path)
     XCTAssertNotNil(target)
   }
 
   // swiftlint:disable:next line_length
   func test_targetInitializationFromTheAbsolutePathToTheExistingNonSupportedSymbolicLink() {
-    let path = root.appending(path: "Fixtures/RegularSymbolicLink").path()
+    let path = root.appending2(path: "Fixtures/RegularSymbolicLink").path2()
     let target = Target(path: path)
     XCTAssertNil(target)
   }
 
   func test_targetInitializationFromTheAbsolutePathToTheNonExistingFile() {
-    let path = root.appending(path: "Fixtures/RegularFile2.txt").path()
+    let path = root.appending2(path: "Fixtures/RegularFile2.txt").path2()
     let target = Target(path: path)
     XCTAssertNil(target)
   }
