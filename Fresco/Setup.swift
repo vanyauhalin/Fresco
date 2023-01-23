@@ -130,7 +130,7 @@ public struct Setup: ParsableCommand {
 
   private static func setIcon(resource: Resource, target: Target) throws {
     let image = resource.image
-    let file = target.url.path()
+    let file = target.url.path2()
     guard FileManager.default.isWritableFile(atPath: file) else {
       throw Error.insufficientPermissions
     }

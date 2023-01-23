@@ -16,12 +16,15 @@ let project = Project(
       platform: .macOS,
       product: .commandLineTool,
       bundleId: "my.vanyauhalin.fresco",
+      deploymentTarget: .macOS(targetVersion: "10.13"),
       sources: [
         "Fresco/Finder.swift",
         "Fresco/Fresco.swift",
         "Fresco/Resource.swift",
         "Fresco/Setup.swift",
         "Fresco/Target.swift",
+        "Fresco/URL+init2.swift",
+        "Fresco/URL+path2.swift",
         "Fresco/Version.swift"
       ],
       dependencies: [
@@ -33,12 +36,15 @@ let project = Project(
       platform: .macOS,
       product: .framework,
       bundleId: "my.vanyauhalin.FrescoFramework",
+      deploymentTarget: .macOS(targetVersion: "10.13"),
       sources: [
         "Fresco/Finder.swift",
         "Fresco/Fresco.swift",
         "Fresco/Resource.swift",
         "Fresco/Setup.swift",
         "Fresco/Target.swift",
+        "Fresco/URL+init2.swift",
+        "Fresco/URL+path2.swift",
         "Fresco/Version.swift"
       ],
       scripts: [
@@ -53,6 +59,7 @@ let project = Project(
       platform: .macOS,
       product: .unitTests,
       bundleId: "my.vanyauhalin.FrescoTests",
+      deploymentTarget: .macOS(targetVersion: "10.13"),
       sources: [
         "Fresco/ResourceTests.swift",
         "Fresco/TargetTests.swift",

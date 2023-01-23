@@ -1,10 +1,22 @@
 import Foundation
 import ProjectDescription
 
-let root = URL(filePath: FileManager.default.currentDirectoryPath)
+let root = {
+  if #available(macOS 13, *) {
+    return URL(filePath: FileManager.default.currentDirectoryPath)
+  } else {
+    return URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+  }
+}()
 
 extension ProjectDescription.TargetScript {
-  public static let makefile = root.appending(path: "Makefile").path()
+  public static let makefile = {
+    if #available(macOS 13, *) {
+      return root.appending(path: "Makefile").path()
+    } else {
+      return root.appendingPathComponent("Makefile").path
+    }
+  }()
 
   public static func make(_ subcommand: String) -> TargetScript {
     .pre(
