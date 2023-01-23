@@ -15,7 +15,7 @@ jobs:
           curl -o tuist.rb https://raw.githubusercontent.com/vanyauhalin/homebrew/main/Formula/tuist.rb
           brew install --build-from-source tuist.rb
       - name: Install dependencies
-        run: make install
+        run: make ci
       - name: Build project
         run: make build
       - name: Create draft

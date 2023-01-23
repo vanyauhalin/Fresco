@@ -1,4 +1,4 @@
-.PHONY: analyze build clean dev fixtures help install lint test version
+.PHONY: analyze build ci clean dev fixtures help install lint test version
 
 define check_tuist
 	if ! command -v tuist > /dev/null; then \
@@ -15,6 +15,7 @@ help:
 	@echo "Subcommands:"
 	@echo "  analyze     Analyze the project via SwiftLint."
 	@echo "  build       Build the project via Tuist."
+	@echo "  ci          Install only production dependencies via Tuist."
 	@echo "  clean       Clean generated Tuist files except for dependencies."
 	@echo "  dev         Generate a development workspace via Tuist."
 	@echo "  fixtures    Build the fixtures via Tuist."
@@ -46,6 +47,11 @@ build:
 	@$(call check_tuist)
 	@tuist generate -n fresco
 	@tuist build fresco --build-output-path .build
+
+ci: export TUIST_CI = true
+ci:
+	@$(call check_tuist)
+	@tuist fetch
 
 clean:
 	@rm -rf \
