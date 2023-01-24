@@ -3,7 +3,29 @@ import Foundation
 
 @main
 public struct Fresco: ParsableCommand {
-  /// The command to set the icon.
+  /// The command to reset the default icon for target.
+  public struct Reset: ParsableCommand {
+    public static let configuration = CommandConfiguration(
+      abstract: "Reset the default icon for target.",
+      usage: """
+      fresco reset [-a] <target>
+      fresco reset ../RegularFile.txt
+      fresco reset -a "SF Symbols"
+      """
+    )
+
+    @OptionGroup
+    public var target: TargetOptions
+
+    public init() {}
+
+    public func run() throws {
+      let target = try Factory.create(from: target)
+      try IconManager.reset(for: target)
+    }
+  }
+
+  /// The command to set the icon for the target.
   public struct Set: ParsableCommand {
     public static let configuration = CommandConfiguration(
       abstract: "Set the icon for the target.",
@@ -48,6 +70,7 @@ public struct Fresco: ParsableCommand {
   public static let configuration = CommandConfiguration(
     abstract: "The handy icon manager for macOS.",
     subcommands: [
+      Reset.self,
       Set.self,
       Version.self
     ],
