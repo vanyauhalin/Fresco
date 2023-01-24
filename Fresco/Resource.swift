@@ -1,5 +1,4 @@
 import AppKit
-import Foundation
 
 public struct Resource {
   /// The resource URL.

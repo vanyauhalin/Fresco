@@ -54,7 +54,6 @@ public enum Factory {
       throw Error.invalidPathResource
     }
     return resource
-
   }
 
   /// Creates a `Target` from their options.

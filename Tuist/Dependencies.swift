@@ -1,11 +1,5 @@
-import Foundation
 import ProjectDescription
-
-extension Environment {
-  public static var ci: Bool {
-    Bool(ProcessInfo.processInfo.environment["TUIST_CI"] ?? "") ?? false
-  }
-}
+import ProjectDescriptionHelpers
 
 let dependencies = Environment.ci
   ? Dependencies()
