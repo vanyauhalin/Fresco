@@ -9,6 +9,9 @@ public enum IconManager {
     /// The icon was not set.
     case iconWasNotSet
 
+    /// The icon was not reset.
+    case iconWasNotReset
+
     public var errorDescription: String? {
       switch self {
         case .insufficientPermissions:
@@ -20,6 +23,11 @@ public enum IconManager {
           return NSLocalizedString(
             "The icon was not set.",
             comment: "Icon Was Not Set"
+          )
+        case .iconWasNotReset:
+          return NSLocalizedString(
+            "The icon was not reset.",
+            comment: "Icon Was Not Reset"
           )
       }
     }
@@ -33,6 +41,16 @@ public enum IconManager {
     }
     guard NSWorkspace.shared.setIcon(image, forFile: file) else {
       throw Error.iconWasNotSet
+    }
+  }
+
+  public static func reset(for target: Target) throws {
+    let file = target.url.path2()
+    guard FileManager.default.isWritableFile(atPath: file) else {
+      throw Error.insufficientPermissions
+    }
+    guard NSWorkspace.shared.setIcon(nil, forFile: file) else {
+      throw Error.iconWasNotReset
     }
   }
 }
