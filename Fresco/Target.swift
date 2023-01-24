@@ -1,5 +1,4 @@
 import AppKit
-import Foundation
 
 public struct Target {
   /// Set of supported target types in `URLResourceKey` format.
