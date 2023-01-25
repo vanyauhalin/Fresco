@@ -36,10 +36,10 @@ public struct Fresco: ParsableCommand {
     )
 
     @OptionGroup
-    public var target: TargetOptions
+    public var resource: ResourceOptions
 
     @OptionGroup
-    public var resource: ResourceOptions
+    public var target: TargetOptions
 
     public init() {}
 
