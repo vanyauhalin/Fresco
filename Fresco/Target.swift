@@ -19,7 +19,7 @@ public struct Target {
     let url = URL(filePath2: path)
     let path = url.path2()
     guard
-      FileManager.default.fileExists(atPath: path),
+      Finder.shared.fileExists(atPath: path),
       let attributes = try? url.resourceValues(forKeys: Target.supported),
       attributes.isApplication == true
       || attributes.isDirectory == true
@@ -34,7 +34,11 @@ public struct Target {
   ///
   /// Returns `nil` if the application with the provided name is not found.
   public init?(application name: String) {
-    guard let url = Finder.find(application: name) else {
+    let url = Finder.shared.applications().first { application in
+      application.lastPathComponent == name
+      || application.deletingPathExtension().lastPathComponent == name
+    }
+    guard let url else {
       return nil
     }
     self.url = url

@@ -19,18 +19,7 @@ public struct Resource {
   /// invalid.
   public init?(path: String) {
     let url = URL(filePath2: path)
-    let path = url.path2()
-    guard
-      FileManager.default.fileExists(atPath: path),
-      let data = FileManager.default.contents(atPath: path),
-      let image = NSImage(data: data),
-      image.isValid
-    else {
-      return nil
-    }
-    self.url = url
-    self.data = data
-    self.image = image
+    self.init(url: url)
   }
 
   /// Creates a `Resource` that refers to the remote file.
@@ -38,8 +27,18 @@ public struct Resource {
   /// Returns `nil` if the provided string does not represent a valid URL, or if
   /// the resource loaded at this URL is invalid.
   public init?(string: String) {
+    guard let url = URL(string: string) else {
+      return nil
+    }
+    self.init(url: url)
+  }
+
+  /// Creates a `Resource` from the URL.
+  ///
+  /// Returns `nil` if the resource at the provided url does not exist or is
+  /// invalid.
+  public init?(url: URL) {
     guard
-      let url = URL(string: string),
       let data = try? Data(contentsOf: url),
       let image = NSImage(data: data),
       image.isValid

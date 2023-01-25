@@ -1,37 +1,51 @@
 import Foundation
 
-public enum Finder {
-  public struct Directory {
-    public static let system = Directory(
-      urls: FileManager.default.urls(
-        for: .applicationDirectory,
-        in: .localDomainMask
-      )
+public class Finder {
+  public static let shared = Finder()
+
+  private let fileManager: FileManager
+
+  public init() {
+    self.fileManager = .default
+  }
+
+  // MARK: FileManager Methods
+
+  public func fileExists(atPath path: String) -> Bool {
+    fileManager.fileExists(atPath: path)
+  }
+
+  public func isWritableFile(atPath path: String) -> Bool {
+    fileManager.isWritableFile(atPath: path)
+  }
+
+  // MARK: Applications
+
+  private var systemApplications: [URL] {
+    let urls = fileManager.urls(
+      for: .applicationDirectory,
+      in: .localDomainMask
     )
+    return applications(at: urls)
+  }
 
-    public static let user = Directory(
-      urls: FileManager.default.urls(
-        for: .applicationDirectory,
-        in: .userDomainMask
-      )
+  private var userApplications: [URL] {
+    let urls = fileManager.urls(
+      for: .applicationDirectory,
+      in: .userDomainMask
     )
+    return applications(at: urls)
+  }
 
-    public let urls: [URL]
-
-    public var applications: [URL] {
-      urls.flatMap { url in
-        Finder.applications(at: url)
-      }
-    }
-
-    public init(urls: [URL]) {
-      self.urls = urls
+  private func applications(at urls: [URL]) -> [URL] {
+    urls.flatMap { url in
+      applications(at: url)
     }
   }
 
-  public static func applications(at url: URL) -> [URL] {
+  private func applications(at url: URL) -> [URL] {
     guard
-      let enumerator = FileManager.default.enumerator(
+      let enumerator = fileManager.enumerator(
         at: url,
         includingPropertiesForKeys: [.isApplicationKey],
         options: [.skipsHiddenFiles, .skipsPackageDescendants]
@@ -53,26 +67,9 @@ public enum Finder {
     return applications
   }
 
-  public static func find(
-    application name: String,
-    in directories: [Directory] = [.system, .user]
-  ) -> URL? {
-    for directory in directories {
-      guard let url = find(application: name, in: directory) else {
-        continue
-      }
-      return url
-    }
-    return nil
-  }
-
-  public static func find(
-    application name: String,
-    in directory: Directory
-  ) -> URL? {
-    directory.applications.first { application in
-      application.lastPathComponent == name
-      || application.deletingPathExtension().lastPathComponent == name
+  public func applications() -> [URL] {
+    [systemApplications, userApplications].flatMap { url in
+      url
     }
   }
 }
