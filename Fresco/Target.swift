@@ -19,9 +19,12 @@ public struct Target {
     let url = URL(filePath2: path)
     guard
       let attributes = try? url.resourceValues(forKeys: Target.supported),
-      attributes.isApplication == true
-      || attributes.isDirectory == true
-      || attributes.isRegularFile == true
+      [
+        attributes.isApplication,
+        attributes.isDirectory,
+        attributes.isRegularFile
+      ]
+        .contains(true)
     else {
       return nil
     }
