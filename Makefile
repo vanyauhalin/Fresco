@@ -109,4 +109,4 @@ test:
 	@tuist test
 
 version:
-	@echo "0.1.1"
+	@echo "0.1.2"
