@@ -34,7 +34,7 @@ public struct Target {
   ///
   /// Returns `nil` if the application with the provided name is not found.
   public init?(application name: String) {
-    let url = Finder.shared.applications().first { application in
+    let url = TargetManager.shared.applications().first { application in
       application.lastPathComponent == name
       || application.deletingPathExtension().lastPathComponent == name
     }
