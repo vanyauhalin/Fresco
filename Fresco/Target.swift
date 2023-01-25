@@ -17,9 +17,7 @@ public struct Target {
   /// supported.
   public init?(path: String) {
     let url = URL(filePath2: path)
-    let path = url.path2()
     guard
-      FileManager.default.fileExists(atPath: path),
       let attributes = try? url.resourceValues(forKeys: Target.supported),
       attributes.isApplication == true
       || attributes.isDirectory == true
