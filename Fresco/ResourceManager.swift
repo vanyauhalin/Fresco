@@ -1,7 +1,7 @@
 import AppKit
 
 /// List of methods for manipulating with target icon.
-public enum IconManager {
+public class ResourceManager {
   public enum Error: LocalizedError {
     /// Insufficient permissions to modify the target.
     case insufficientPermissions
@@ -33,23 +33,33 @@ public enum IconManager {
     }
   }
 
-  public static func set(_ resource: Resource, for target: Target) throws {
+  public static let shared = ResourceManager()
+
+  private let fileManager: FileManager
+  private let workspace: NSWorkspace
+
+  public init() {
+    self.fileManager = .default
+    self.workspace = .shared
+  }
+
+  public func set(_ resource: Resource, for target: Target) throws {
     let image = resource.image
     let file = target.url.path2()
-    guard FileManager.default.isWritableFile(atPath: file) else {
+    guard fileManager.isWritableFile(atPath: file) else {
       throw Error.insufficientPermissions
     }
-    guard NSWorkspace.shared.setIcon(image, forFile: file) else {
+    guard workspace.setIcon(image, forFile: file) else {
       throw Error.iconWasNotSet
     }
   }
 
-  public static func reset(for target: Target) throws {
+  public func reset(for target: Target) throws {
     let file = target.url.path2()
-    guard FileManager.default.isWritableFile(atPath: file) else {
+    guard fileManager.isWritableFile(atPath: file) else {
       throw Error.insufficientPermissions
     }
-    guard NSWorkspace.shared.setIcon(nil, forFile: file) else {
+    guard workspace.setIcon(nil, forFile: file) else {
       throw Error.iconWasNotReset
     }
   }
