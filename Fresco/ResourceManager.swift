@@ -35,18 +35,18 @@ public class ResourceManager {
 
   public static let shared = ResourceManager()
 
-  private let finder: Finder
+  private let fileManager: FileManager
   private let workspace: NSWorkspace
 
   public init() {
-    self.finder = .shared
+    self.fileManager = .default
     self.workspace = .shared
   }
 
   public func set(_ resource: Resource, for target: Target) throws {
     let image = resource.image
     let file = target.url.path2()
-    guard finder.isWritableFile(atPath: file) else {
+    guard fileManager.isWritableFile(atPath: file) else {
       throw Error.insufficientPermissions
     }
     guard workspace.setIcon(image, forFile: file) else {
@@ -56,7 +56,7 @@ public class ResourceManager {
 
   public func reset(for target: Target) throws {
     let file = target.url.path2()
-    guard finder.isWritableFile(atPath: file) else {
+    guard fileManager.isWritableFile(atPath: file) else {
       throw Error.insufficientPermissions
     }
     guard workspace.setIcon(nil, forFile: file) else {

@@ -19,7 +19,7 @@ public struct Target {
     let url = URL(filePath2: path)
     let path = url.path2()
     guard
-      Finder.shared.fileExists(atPath: path),
+      FileManager.default.fileExists(atPath: path),
       let attributes = try? url.resourceValues(forKeys: Target.supported),
       attributes.isApplication == true
       || attributes.isDirectory == true
