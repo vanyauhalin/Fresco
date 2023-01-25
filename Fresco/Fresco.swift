@@ -20,7 +20,7 @@ public struct Fresco: ParsableCommand {
 
     public func run() throws {
       let target = try TargetFactory.create(from: target)
-      try IconManager.reset(for: target)
+      try ResourceManager.shared.reset(for: target)
     }
   }
 
@@ -46,7 +46,7 @@ public struct Fresco: ParsableCommand {
     public func run() throws {
       let resource = try ResourceFactory.create(from: resource)
       let target = try TargetFactory.create(from: target)
-      try IconManager.set(resource, for: target)
+      try ResourceManager.shared.set(resource, for: target)
     }
   }
 
