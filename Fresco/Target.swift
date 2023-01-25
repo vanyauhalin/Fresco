@@ -16,14 +16,15 @@ public struct Target {
   /// Returns `nil` if the target at the provided path does not exist or is not
   /// supported.
   public init?(path: String) {
-    let url = URL(filePath2: path)
-    let path = url.path2()
+    let url = URL(filePath2: path).absoluteURL
     guard
-      FileManager.default.fileExists(atPath: path),
       let attributes = try? url.resourceValues(forKeys: Target.supported),
-      attributes.isApplication == true
-      || attributes.isDirectory == true
-      || attributes.isRegularFile == true
+      [
+        attributes.isApplication,
+        attributes.isDirectory,
+        attributes.isRegularFile
+      ]
+        .contains(true)
     else {
       return nil
     }
