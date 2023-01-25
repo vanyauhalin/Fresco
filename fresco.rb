@@ -1,8 +1,8 @@
 class Fresco < Formula
   desc "The handy icon manager for macOS"
   homepage "https://github.com/vanyauhalin/Fresco"
-  url "https://github.com/vanyauhalin/Fresco/releases/download/v0.1.1/fresco.tar.zst"
-  sha256 "1ade3a6f0d4ca282b0defca8c73311424fe4037a446c5be5f94b7fa208c59f71"
+  url "https://github.com/vanyauhalin/Fresco/releases/download/v0.1.2/fresco.tar.zst"
+  sha256 "cf654e424917bd715adbe751956e89b3bd54a65f14a17fd5e93c1c7a5baa2b2e"
   license "MIT"
   head "https://github.com/vanyauhalin/Fresco", branch: "main"
 
@@ -14,6 +14,6 @@ class Fresco < Formula
 
   test do
     system bin/"fresco", "--help"
-    system bin/"fresco", "version", "0.1.1"
+    system bin/"fresco", "version", "0.1.2"
   end
 end
