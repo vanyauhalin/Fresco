@@ -1,14 +1,7 @@
 import Foundation
 
-/// List of methods for creating instances from their options.
-public enum Factory {
+public enum TargetFactory {
   public enum Error: LocalizedError {
-    /// Invalid resource URL or the resource loaded at this URL.
-    case invalidStringResource
-
-    /// The resource at the provided path does not exist or is invalid.
-    case invalidPathResource
-
     /// The application with the provided name is not found.
     case targetApplicationIsNotFound
 
@@ -17,16 +10,6 @@ public enum Factory {
 
     public var errorDescription: String? {
       switch self {
-        case .invalidStringResource:
-          return NSLocalizedString(
-            "Invalid resource URL or the resource loaded at this URL.",
-            comment: "Invalid String Resource"
-          )
-        case .invalidPathResource:
-          return NSLocalizedString(
-            "The resource at the provided path does not exist or is invalid.",
-            comment: "Invalid Path Resource"
-          )
         case .targetApplicationIsNotFound:
           return NSLocalizedString(
             "The application with the provided name is not found.",
@@ -40,20 +23,6 @@ public enum Factory {
           )
       }
     }
-  }
-
-  /// Creates a `Resource` from their options.
-  public static func create(from options: ResourceOptions) throws -> Resource {
-    if options.remote {
-      guard let resource = Resource(string: options.value) else {
-        throw Error.invalidStringResource
-      }
-      return resource
-    }
-    guard let resource = Resource(path: options.value) else {
-      throw Error.invalidPathResource
-    }
-    return resource
   }
 
   /// Creates a `Target` from their options.
