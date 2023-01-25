@@ -16,7 +16,7 @@ public struct Target {
   /// Returns `nil` if the target at the provided path does not exist or is not
   /// supported.
   public init?(path: String) {
-    let url = URL(filePath2: path)
+    let url = URL(filePath2: path).absoluteURL
     guard
       let attributes = try? url.resourceValues(forKeys: Target.supported),
       [

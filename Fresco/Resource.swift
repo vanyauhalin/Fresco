@@ -38,6 +38,7 @@ public struct Resource {
   /// Returns `nil` if the resource at the provided url does not exist or is
   /// invalid.
   public init?(url: URL) {
+    let url = url.absoluteURL
     guard
       let data = try? Data(contentsOf: url),
       let image = NSImage(data: data),
