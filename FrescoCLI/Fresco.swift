@@ -3,10 +3,10 @@ import FrescoCore
 
 @main
 public struct Fresco: ParsableCommand {
-  /// The command to reset the default icon for target.
+  /// The command to reset the default icon for the target.
   public struct Reset: ParsableCommand {
     public static let configuration = CommandConfiguration(
-      abstract: "Reset the default icon for target.",
+      abstract: "Reset the default icon for the target.",
       usage: """
       fresco reset [-a] <target>
       fresco reset ../RegularFile.txt

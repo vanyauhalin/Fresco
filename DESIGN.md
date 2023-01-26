@@ -53,7 +53,7 @@ OPTIONS:
 ### `fresco reset`
 
 ```text
-OVERVIEW: Reset the default icon for target.
+OVERVIEW: Reset the default icon for the target.
 
 USAGE: fresco reset [-a] <target>
        fresco reset ../RegularFile.txt
