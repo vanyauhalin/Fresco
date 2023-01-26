@@ -86,11 +86,13 @@ analyze:
 	@tuist generate -n
 	@$(call analyze,FrescoCore)
 	@$(call analyze,FrescoCLI)
+	@$(call analyze,FrescoGUI)
 
 build: export TUIST_ENVIRONMENT = production
 build:
 	@$(call check_tuist)
 	@$(call build,FrescoCLI)
+	@$(call build,FrescoGUI)
 
 ci: export TUIST_ENVIRONMENT = ci
 ci:
@@ -100,6 +102,7 @@ ci:
 clean:
 	@$(call clean,FrescoCLI)
 	@$(call clean,FrescoCore)
+	@$(call clean,FrescoGUI)
 	@$(call clean,.)
 
 dev:
