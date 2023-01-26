@@ -24,7 +24,7 @@ Download the [latest release binary](https://github.com/vanyauhalin/Fresco/relea
 
 ## Contributing
 
-We will be happy to see any help, so [issues](https://github.com/vanyauhalin/Fresco/issues) and [pull requests](https://github.com/vanyauhalin/Fresco/pulls) are welcome. Look at [documentation](./Documentation/README.md) on how to start development.
+We will be happy to see any help, so [issues](https://github.com/vanyauhalin/Fresco/issues) and [pull requests](https://github.com/vanyauhalin/Fresco/pulls) are welcome. Look at [contributing](./CONTRIBUTING.md) on how to start development.
 
 ## License
 
