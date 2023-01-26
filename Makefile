@@ -47,7 +47,7 @@ build:
 	@tuist generate -n fresco
 	@tuist build fresco --build-output-path .build
 
-ci: export TUIST_CI = true
+ci: export TUIST_ENVIRONMENT = ci
 ci:
 	@$(call check_tuist)
 	@tuist fetch
