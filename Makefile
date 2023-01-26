@@ -27,6 +27,10 @@ define analyze
 					--compiler-log-path xcodebuild.log
 endef
 
+define prebuild
+	cp .package.resolved $(1)/.package.resolved
+endef
+
 define build
 	tuist build \
 		-p $(1) \
@@ -91,6 +95,9 @@ analyze:
 build: export TUIST_ENVIRONMENT = production
 build:
 	@$(call check_tuist)
+	@$(call prebuild,FrescoCore)
+	@$(call prebuild,FrescoCLI)
+	@$(call prebuild,FrescoGUI)
 	@$(call build,FrescoCLI)
 	@$(call build,FrescoGUI)
 
