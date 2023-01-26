@@ -42,6 +42,7 @@ analyze:
 					--config .swiftlint.yml \
 					--compiler-log-path xcodebuild.log
 
+build: export TUIST_ENVIRONMENT = production
 build:
 	@$(call check_tuist)
 	@tuist generate -n fresco
