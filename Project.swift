@@ -36,7 +36,7 @@ let project = Project(
         excluding: ["Fresco/*Tests.swift", "Fresco/XCTestCase*"]
       ),
       scripts: [
-        .lint()
+        .lint("Fresco")
       ],
       dependencies: [
         .package(product: "ArgumentParser")

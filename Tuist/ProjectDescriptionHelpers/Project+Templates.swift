@@ -51,7 +51,7 @@ extension ProjectDescription.TargetScript {
     )
   }
 
-  public static func lint() -> TargetScript {
-    .make("lint")
+  public static func lint(_ project: String) -> TargetScript {
+    .make("lint project=\(project)")
   }
 }

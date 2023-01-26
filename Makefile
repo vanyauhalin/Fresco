@@ -1,5 +1,7 @@
 .PHONY: analyze build ci clean dev help install lint test version
 
+project :=
+
 define check_tuist
 	if ! command -v tuist > /dev/null; then \
 		echo "Tuist is not installed, please visit https://tuist.io to see how to install it." \
@@ -7,10 +9,28 @@ define check_tuist
 	fi
 endef
 
+define lint
+	if \
+		! xcrun \
+			--sdk macosx \
+			swift run \
+				--package-path Tuist/Dependencies/SwiftPackageManager \
+				--skip-build \
+					swiftlint lint \
+						--config .swiftlint.yml \
+						$(1) \
+		2> /dev/null; \
+	then \
+		echo "warning: SwiftLint not installed, please execute make at the root of the project to see how to install it."; \
+	fi
+endef
+
 help:
 	@echo "Welcome to vanyauhalin/fresco sources."
 	@echo ""
-	@echo "Usage: make <subcommand>"
+	@echo "Usage: make <subcommand> [argument=value]"
+	@echo "       make install"
+	@echo "       make lint project=FrescoCLI"
 	@echo ""
 	@echo "Subcommands:"
 	@echo "  analyze     Analyze the project via SwiftLint."
@@ -23,6 +43,9 @@ help:
 	@echo "  lint        Lint the project and Tuist directory via SwiftLint."
 	@echo "  test        Test the project via Tuist."
 	@echo "  version     Print the current project version."
+	@echo ""
+	@echo "Arguments:"
+	@echo "  project     Specify a project for the lint command."
 
 analyze:
 	@$(call check_tuist)
@@ -75,19 +98,11 @@ install:
 			--product swiftlint
 
 lint:
-	@if \
-		! xcrun \
-			--sdk macosx \
-			swift run \
-				--package-path Tuist/Dependencies/SwiftPackageManager \
-				--skip-build \
-					swiftlint lint \
-						--config .swiftlint.yml \
-						. \
-		2> /dev/null; \
-	then \
-		echo "warning: SwiftLint not installed, please execute make at the root of the project to see how to install it."; \
-	fi
+ifdef project
+	@$(call lint,$(project))
+else
+	@$(call lint,.)
+endif
 
 test:
 	@$(call check_tuist)
