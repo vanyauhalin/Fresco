@@ -1,4 +1,4 @@
-.PHONY: analyze build ci clean dev fixtures help install lint test version
+.PHONY: analyze build ci clean dev help install lint test version
 
 define check_tuist
 	if ! command -v tuist > /dev/null; then \
@@ -18,7 +18,6 @@ help:
 	@echo "  ci          Install only production dependencies via Tuist."
 	@echo "  clean       Clean generated Tuist files except for dependencies."
 	@echo "  dev         Generate a development workspace via Tuist."
-	@echo "  fixtures    Build the fixtures via Tuist."
 	@echo "  help        Show this message."
 	@echo "  install     Install dependencies via Tuist."
 	@echo "  lint        Lint the project and Tuist directory via SwiftLint."
@@ -59,26 +58,11 @@ clean:
 		*.xcworkspace \
 		.build \
 		Derived \
-		xcodebuild.log \
-		Fixtures/RegularApplication/*.xcodeproj \
-		Fixtures/RegularApplication/*.xcworkspace \
-		Fixtures/RegularApplication/.build \
-		Fixtures/RegularApplication/Derived
+		xcodebuild.log
 
 dev:
 	@$(call check_tuist)
 	@tuist generate FrescoFramework FrescoTests
-
-fixtures:
-	@$(call check_tuist)
-	@tuist build \
-		-p Fixtures/RegularApplication \
-		--build-output-path Fixtures/RegularApplication/.build
-	@mv -f \
-		Fixtures/RegularApplication/.build/Debug/RegularApplication.app \
-		Fixtures/RegularApplication.app
-	@cp -r Fixtures/RegularApplication.app Fixtures/SystemApplication.app
-	@chown root:wheel Fixtures/SystemApplication.app
 
 install:
 	@$(call check_tuist)
