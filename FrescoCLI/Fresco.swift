@@ -1,11 +1,12 @@
 import ArgumentParser
+import FrescoCore
 
 @main
 public struct Fresco: ParsableCommand {
-  /// The command to reset the default icon for target.
+  /// The command to reset the default icon for the target.
   public struct Reset: ParsableCommand {
     public static let configuration = CommandConfiguration(
-      abstract: "Reset the default icon for target.",
+      abstract: "Reset the default icon for the target.",
       usage: """
       fresco reset [-a] <target>
       fresco reset ../RegularFile.txt
@@ -59,12 +60,9 @@ public struct Fresco: ParsableCommand {
     public init() {}
 
     public func run() {
-      print(Fresco.version)
+      print(Environment.version)
     }
   }
-
-  /// The current fresco version.
-  public static let version = "0.1.2"
 
   public static let configuration = CommandConfiguration(
     abstract: "The handy icon manager for macOS.",

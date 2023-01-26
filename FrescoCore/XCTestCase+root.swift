@@ -4,7 +4,7 @@ extension XCTestCase {
   public var root: URL {
     URL(
       fileURLWithPath: #file.replacingOccurrences(
-        of: "/Fresco/XCTestCase+root.swift",
+        of: "/FrescoCore/XCTestCase+root.swift",
         with: ""
       )
     )

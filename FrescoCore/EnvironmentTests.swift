@@ -1,9 +1,9 @@
-@testable import FrescoFramework
+@testable import FrescoCore
 import XCTest
 
-class FrescoTests: XCTestCase {
+class EnvironmentTests: XCTestCase {
   func test_frescoVersion() throws {
     let version = try make("version").trimmingCharacters(in: .newlines)
-    XCTAssertEqual(Fresco.version, version)
+    XCTAssertEqual(Environment.version, version)
   }
 }
