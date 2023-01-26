@@ -18,7 +18,7 @@ extension SourceFilesList {
       globs: [
         .glob(
           .relativeToManifest(path),
-          excluding: excluding
+          excluding: excluding + ["Project.swift"]
         )
       ]
     )
@@ -29,7 +29,10 @@ extension SourceFilesList {
   ) -> SourceFilesList {
     SourceFilesList(
       globs: path.map { item in
-        .glob(.relativeToManifest(item))
+        .glob(
+          .relativeToManifest(item),
+          excluding: "Project.swift"
+        )
       }
     )
   }
@@ -53,5 +56,11 @@ extension ProjectDescription.TargetScript {
 
   public static func lint(_ project: String) -> TargetScript {
     .make("lint project=\(project)")
+  }
+}
+
+extension ProjectDescription.TargetDependency {
+  public static func project(_ target: String) -> TargetDependency {
+    .project(target: target, path: .relativeToRoot(target))
   }
 }

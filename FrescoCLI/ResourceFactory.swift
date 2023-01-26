@@ -1,4 +1,5 @@
 import Foundation
+import FrescoCore
 
 public enum ResourceFactory {
   public enum Error: LocalizedError {

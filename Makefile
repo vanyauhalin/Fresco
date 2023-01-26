@@ -9,6 +9,40 @@ define check_tuist
 	fi
 endef
 
+define analyze
+	xcodebuild \
+		-workspace Fresco.xcworkspace \
+		-scheme $(1) \
+		-quiet \
+		CODE_SIGN_IDENTITY="" \
+		CODE_SIGNING_REQUIRED=NO \
+		> xcodebuild.log
+	xcrun \
+		--sdk macosx \
+		swift run \
+			--package-path Tuist/Dependencies/SwiftPackageManager \
+			--skip-build \
+				swiftlint analyze \
+					--config .swiftlint.yml \
+					--compiler-log-path xcodebuild.log
+endef
+
+define build
+	tuist build \
+		-p $(1) \
+		--clean \
+		--build-output-path $(1)/.build
+endef
+
+define clean
+	rm -rf \
+		$(1)/*.xcodeproj \
+		$(1)/*.xcworkspace \
+		$(1)/.build \
+		$(1)/Derived \
+		$(1)/xcodebuild.log
+endef
+
 define lint
 	if \
 		! xcrun \
@@ -49,27 +83,14 @@ help:
 
 analyze:
 	@$(call check_tuist)
-	@tuist generate -n FrescoFramework
-	@xcodebuild \
-		-workspace Fresco.xcworkspace \
-		-scheme FrescoFramework \
-		CODE_SIGN_IDENTITY="" \
-		CODE_SIGNING_REQUIRED=NO \
-		> xcodebuild.log
-	@xcrun \
-		--sdk macosx \
-		swift run \
-			--package-path Tuist/Dependencies/SwiftPackageManager \
-			--skip-build \
-				swiftlint analyze \
-					--config .swiftlint.yml \
-					--compiler-log-path xcodebuild.log
+	@tuist generate -n
+	@$(call analyze,FrescoCore)
+	@$(call analyze,FrescoCLI)
 
 build: export TUIST_ENVIRONMENT = production
 build:
 	@$(call check_tuist)
-	@tuist generate -n fresco
-	@tuist build fresco --build-output-path .build
+	@$(call build,FrescoCLI)
 
 ci: export TUIST_ENVIRONMENT = ci
 ci:
@@ -77,16 +98,13 @@ ci:
 	@tuist fetch
 
 clean:
-	@rm -rf \
-		*.xcodeproj \
-		*.xcworkspace \
-		.build \
-		Derived \
-		xcodebuild.log
+	@$(call clean,FrescoCLI)
+	@$(call clean,FrescoCore)
+	@$(call clean,.)
 
 dev:
 	@$(call check_tuist)
-	@tuist generate FrescoFramework FrescoTests
+	@tuist generate
 
 install:
 	@$(call check_tuist)

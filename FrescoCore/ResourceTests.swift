@@ -1,4 +1,4 @@
-@testable import FrescoFramework
+@testable import FrescoCore
 import XCTest
 
 class ResourceTests: XCTestCase {

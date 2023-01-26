@@ -1,4 +1,5 @@
 import ArgumentParser
+import FrescoCore
 
 @main
 public struct Fresco: ParsableCommand {
@@ -59,12 +60,9 @@ public struct Fresco: ParsableCommand {
     public init() {}
 
     public func run() {
-      print(Fresco.version)
+      print(Environment.version)
     }
   }
-
-  /// The current fresco version.
-  public static let version = "0.1.2"
 
   public static let configuration = CommandConfiguration(
     abstract: "The handy icon manager for macOS.",
