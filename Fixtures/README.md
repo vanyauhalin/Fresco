@@ -1,3 +1,6 @@
 # Fixtures
 
-For tests, Fresco uses [BurningIcon](/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/BurningIcon.icns) renamed for convenience to [RegularIcon](./RegularIcon.icns), which is owned by Apple Inc.
+For tests, Fresco uses [BurningIcon][bi] renamed for convenience to [RegularIcon][ri], which is owned by Apple Inc.
+
+[bi]: /System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/BurningIcon.icns
+[ri]: ./RegularIcon.icns
