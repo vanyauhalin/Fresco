@@ -1,4 +1,5 @@
-@testable import FrescoCore
+// swiftlint:disable line_length
+@testable import FrescoCLI
 import XCTest
 
 class ResourceTests: XCTestCase {
@@ -8,7 +9,6 @@ class ResourceTests: XCTestCase {
     XCTAssertNotNil(resource)
   }
 
-  // swiftlint:disable:next line_length
   func test_resourceInitializationFromTheRelativePathToTheExistingInvalidFile() {
     let path = "Fixtures/BrokenIcon.icns"
     let resource = Resource(path: path)
@@ -27,7 +27,6 @@ class ResourceTests: XCTestCase {
     XCTAssertNotNil(resource)
   }
 
-  // swiftlint:disable:next line_length
   func test_resourceInitializationFromTheAbsolutePathToTheExistingInvalidFile() {
     let path = root.appending2(path: "Fixtures/BrokenIcon.icns").path2()
     let resource = Resource(path: path)

@@ -1,7 +1,7 @@
 import XCTest
 
 extension XCTestCase {
-  public func shell(_ command: String) throws -> String {
+  func shell(_ command: String) throws -> String {
     let task = Process()
     let pipe = Pipe()
     task.standardOutput = pipe

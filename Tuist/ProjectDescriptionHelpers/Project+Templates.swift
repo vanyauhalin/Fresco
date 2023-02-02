@@ -10,28 +10,24 @@ let root = {
 }()
 
 extension SourceFilesList {
-  public static func relative(
-    _ path: String,
-    excluding: [Path] = []
-  ) -> SourceFilesList {
-    SourceFilesList(
-      globs: [
+  public static func relative(_ paths: [String]) -> SourceFilesList {
+    let including = paths.filter { path in
+      !path.starts(with: "!")
+    }
+    let excluding = paths
+      .filter { path in
+        path.starts(with: "!")
+      }
+      .map { path in
+        path.replacingOccurrences(of: "!", with: "")
+      }
+    return SourceFilesList(
+      globs: including.map { path in
         .glob(
           .relativeToManifest(path),
-          excluding: excluding + ["Project.swift"]
-        )
-      ]
-    )
-  }
-
-  public static func relative(
-    _ path: [String]
-  ) -> SourceFilesList {
-    SourceFilesList(
-      globs: path.map { item in
-        .glob(
-          .relativeToManifest(item),
-          excluding: "Project.swift"
+          excluding: excluding.map { path in
+            Path(path)
+          }
         )
       }
     )
@@ -39,7 +35,7 @@ extension SourceFilesList {
 }
 
 extension ProjectDescription.TargetScript {
-  public static let makefile = {
+  private static let makefile = {
     if #available(macOS 13, *) {
       return root.appending(path: "Makefile").path()
     } else {
@@ -47,7 +43,7 @@ extension ProjectDescription.TargetScript {
     }
   }()
 
-  public static func make(_ subcommand: String) -> TargetScript {
+  private static func make(_ subcommand: String) -> TargetScript {
     .pre(
       script: "make -f \(makefile) \(subcommand)",
       name: "make \(subcommand)"
@@ -56,11 +52,5 @@ extension ProjectDescription.TargetScript {
 
   public static func lint(_ project: String) -> TargetScript {
     .make("lint project=\(project)")
-  }
-}
-
-extension ProjectDescription.TargetDependency {
-  public static func project(_ target: String) -> TargetDependency {
-    .project(target: target, path: .relativeToRoot(target))
   }
 }

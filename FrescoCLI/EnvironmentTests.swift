@@ -1,4 +1,4 @@
-@testable import FrescoCore
+@testable import FrescoCLI
 import XCTest
 
 class EnvironmentTests: XCTestCase {

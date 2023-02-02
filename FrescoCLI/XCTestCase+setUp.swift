@@ -1,4 +1,3 @@
-import FrescoCore
 import XCTest
 
 extension XCTestCase {

@@ -1,13 +1,13 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let dependencies = Environment.ci
-  ? Dependencies()
-  : Dependencies(
-    swiftPackageManager: [
-      .remote(
-        url: "https://github.com/realm/SwiftLint",
-        requirement: .branch("main")
-      )
-    ]
-  )
+let dependencies = Dependencies(
+  swiftPackageManager: Environment.ci
+    ? []
+    : [
+      .package(url: "https://github.com/realm/SwiftLint.git", .branch("main"))
+    ],
+  platforms: [
+    .macOS
+  ]
+)

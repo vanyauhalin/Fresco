@@ -1,10 +1,10 @@
 import XCTest
 
 extension XCTestCase {
-  public var root: URL {
+  var root: URL {
     URL(
       fileURLWithPath: #file.replacingOccurrences(
-        of: "/FrescoCore/XCTestCase+root.swift",
+        of: "/FrescoCLI/XCTestCase+root.swift",
         with: ""
       )
     )
