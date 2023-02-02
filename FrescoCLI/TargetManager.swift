@@ -1,6 +1,6 @@
 import Foundation
 
-public class TargetManager {
+public final class TargetManager {
   public static let shared = TargetManager()
 
   private let fileManager: FileManager
@@ -21,7 +21,7 @@ public class TargetManager {
     return applications(at: urls)
   }
 
-  public init() {
+  private init() {
     self.fileManager = .default
   }
 

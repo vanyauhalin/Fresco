@@ -27,13 +27,9 @@ define analyze
 					--compiler-log-path xcodebuild.log
 endef
 
-define prebuild
-	cp .package.resolved $(1)/.package.resolved
-endef
-
 define build
 	tuist build \
-		-p $(1) \
+		$(1) \
 		--clean \
 		--build-output-path $(1)/.build
 endef
@@ -88,16 +84,12 @@ help:
 analyze:
 	@$(call check_tuist)
 	@tuist generate -n
-	@$(call analyze,FrescoCore)
 	@$(call analyze,FrescoCLI)
 	@$(call analyze,FrescoGUI)
 
 build: export TUIST_ENVIRONMENT = production
 build:
 	@$(call check_tuist)
-	@$(call prebuild,FrescoCore)
-	@$(call prebuild,FrescoCLI)
-	@$(call prebuild,FrescoGUI)
 	@$(call build,FrescoCLI)
 	@$(call build,FrescoGUI)
 
@@ -108,7 +100,6 @@ ci:
 
 clean:
 	@$(call clean,FrescoCLI)
-	@$(call clean,FrescoCore)
 	@$(call clean,FrescoGUI)
 	@$(call clean,.)
 
@@ -137,4 +128,4 @@ test:
 	@tuist test
 
 version:
-	@echo "0.1.2"
+	@echo "0.1.0"

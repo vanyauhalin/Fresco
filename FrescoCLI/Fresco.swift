@@ -1,5 +1,4 @@
 import ArgumentParser
-import FrescoCore
 
 @main
 public struct Fresco: ParsableCommand {

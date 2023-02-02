@@ -1,7 +1,7 @@
 import AppKit
 
 /// List of methods for manipulating with target icon.
-public class ResourceManager {
+public final class ResourceManager {
   public enum Error: LocalizedError {
     /// Insufficient permissions to modify the target.
     case insufficientPermissions
@@ -38,7 +38,7 @@ public class ResourceManager {
   private let fileManager: FileManager
   private let workspace: NSWorkspace
 
-  public init() {
+  private init() {
     self.fileManager = .default
     self.workspace = .shared
   }
