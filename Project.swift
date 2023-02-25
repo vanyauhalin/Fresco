@@ -34,6 +34,12 @@ let project = Project(
         platform: .macOS,
         product: .app,
         bundleId: "my.vanyauhalin.FrescoGUI",
+        deploymentTarget: .macOS(targetVersion: "10.13"),
+        infoPlist: .extendingDefault(
+          with: [
+            "NSMainStoryboardFile": ""
+          ]
+        ),
         sources: .relative([
           "FrescoGUI/*.swift"
         ]),
@@ -53,7 +59,7 @@ let project = Project(
         sources: .relative([
           "!FrescoCLI/*Tests.swift",
           "!FrescoCLI/XCTestCase*",
-          "FrescoCLI/*.swift"
+          "FrescoCLI/**.swift"
         ]),
         scripts: [
           .lint("FrescoCLI")
@@ -84,8 +90,14 @@ let project = Project(
         platform: .macOS,
         product: .app,
         bundleId: "my.vanyauhalin.FrescoGUI",
+        deploymentTarget: .macOS(targetVersion: "10.13"),
+        infoPlist: .extendingDefault(
+          with: [
+            "NSMainStoryboardFile": ""
+          ]
+        ),
         sources: .relative([
-          "FrescoGUI/*.swift"
+          "FrescoGUI/**/*.swift"
         ]),
         scripts: [
           .lint("FrescoGUI")

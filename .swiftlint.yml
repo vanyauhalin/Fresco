@@ -104,7 +104,6 @@ only_rules:
   - nesting
   - nimble_operator
   - no_extension_access_modifier
-  - no_grouping_extension
   - no_space_in_method_call
   - notification_center_detachment
   - ns_number_init_as_function_reference
@@ -163,7 +162,7 @@ only_rules:
   - trailing_semicolon
   - trailing_whitespace
   - type_body_length
-  - type_contents_order
+  # - type_contents_order
   - type_name
   - unavailable_condition
   - unavailable_function
@@ -371,7 +370,6 @@ nesting:
   always_allow_one_type_in_functions: true
 nimble_operator: error
 no_extension_access_modifier: error
-no_grouping_extension: warning
 no_space_in_method_call: warning
 notification_center_detachment: warning
 ns_number_init_as_function_reference: error
@@ -464,24 +462,24 @@ trailing_whitespace:
 type_body_length:
   warning: 200
   error: 260
-type_contents_order:
-  severity: warning
-  order:
-    - SwiftLintFramework.TypeContent.case
-    - SwiftLintFramework.TypeContent.typeAlias
-    - SwiftLintFramework.TypeContent.associatedType
-    - SwiftLintFramework.TypeContent.subtype
-    - SwiftLintFramework.TypeContent.typeProperty
-    - SwiftLintFramework.TypeContent.instanceProperty
-    - SwiftLintFramework.TypeContent.ibInspectable
-    - SwiftLintFramework.TypeContent.ibOutlet
-    - SwiftLintFramework.TypeContent.initializer
-    - SwiftLintFramework.TypeContent.typeMethod
-    - SwiftLintFramework.TypeContent.viewLifeCycleMethod
-    - SwiftLintFramework.TypeContent.ibAction
-    - SwiftLintFramework.TypeContent.otherMethod
-    - SwiftLintFramework.TypeContent.subscript
-    - SwiftLintFramework.TypeContent.deinitializer
+# type_contents_order:
+#   severity: warning
+#   order:
+#     - SwiftLintFramework.TypeContent.case
+#     - SwiftLintFramework.TypeContent.typeAlias
+#     - SwiftLintFramework.TypeContent.associatedType
+#     - SwiftLintFramework.TypeContent.subtype
+#     - SwiftLintFramework.TypeContent.typeProperty
+#     - SwiftLintFramework.TypeContent.instanceProperty
+#     - SwiftLintFramework.TypeContent.ibInspectable
+#     - SwiftLintFramework.TypeContent.ibOutlet
+#     - SwiftLintFramework.TypeContent.initializer
+#     - SwiftLintFramework.TypeContent.typeMethod
+#     - SwiftLintFramework.TypeContent.viewLifeCycleMethod
+#     - SwiftLintFramework.TypeContent.ibAction
+#     - SwiftLintFramework.TypeContent.otherMethod
+#     - SwiftLintFramework.TypeContent.subscript
+#     - SwiftLintFramework.TypeContent.deinitializer
 type_name:
   min_length: 3
   validates_start_with_lowercase: true
